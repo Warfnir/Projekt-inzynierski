@@ -1,0 +1,18 @@
+{% extends 'image_segregator/base.html' %}
+
+{% block content %}
+  Hello there
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+      <input type="file" name="images">
+      <button type="submit">Send</button><br><br>
+      Select which one must contain and which not.<br>
+      <input type="checkbox" name="ContainsCat" value="True">Cat<br>
+      <input type="checkbox" name="ContainsDog" value="True">Dog<br>
+      <input type="checkbox" name="ContainsPerson" value="True">Person<br>    
+  </form>
+  <br><br>
+  {% if Error %}
+    "Error:" {{Error}}
+  {% endif %}
+{% endblock %}
