@@ -42,10 +42,16 @@ def index(request):
                         x = image.img_to_array(img_resized)
                         x = np.array([x,]) * (1.0/255.0)
                         results = []
-                        results.append(True if cat_rec.predict_classes([x,])[0] == 0 else False)
-                        results.append(True if dog_rec.predict_classes([x,])[0] == 0 else False)
-                        results.append(True if person_rec.predict_classes([x,])[0] == 1 else False)
+                        # results.append(True if cat_rec.predict_classes([x,])[0] == 0 else False)
+                        # results.append(True if dog_rec.predict_classes([x,])[0] == 0 else False)
+                        # results.append(True if person_rec.predict_classes([x,])[0] == 1 else False)
                         # print(file.name, all_classes.predict([x,]))
+                        for i in all_classes.predict([x,])[0]:
+                            if i > 0.5:
+                                results.append(True)
+                            else:
+                                results.append(False)
+                        # results.append(for i in all_classes.predict([x,] if i > 0.5 True else False)
                         meets_requirements = (lookupTable == results)
                         if meets_requirements:
                             images_meeting_condition.append([file.name,img])
@@ -72,3 +78,4 @@ def index(request):
 # It's usually a good idea to set the 'Content-Length' header too.
 # You can also set any other required headers: Cache-Control, etc.
     return render(request, 'image_segregator/index.html')
+    
